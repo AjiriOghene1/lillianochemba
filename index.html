@@ -2420,11 +2420,16 @@ html:not(.tb-open) .tb-layer{display:none !important;}
   .ev-register-flyer{max-width:460px;}
 }
 .ev-countdown[hidden]{display:none;}
-.ev-cd-grid{display:flex;align-items:flex-start;gap:.35rem;margin:.1rem 0 1.1rem;}
+/* DSEG7 Classic by Keshikan, SIL Open Font License 1.1 (digits only) */
+@font-face{font-family:'DSEG7';src:url(data:font/woff2;base64,d09GMgABAAAAAAMcAAwAAAAACYgAAALPAAB1wgAAAAAAAAAAAAAAAAAAAAAAAAAABmAAPAgEEQgKinCHRQE2AiQDNAscAAQgBYM4ByAb8gYILgbspuMID9FhmFlEfciamlnZW180HqBxX29m1k5m+mmrcEJjvutiMlJwVJXytstzsObuTRYRf8x+j7nMtSHukVA0rjTqEuoGpwu9yL7yvHgG8RTBoOfCJTro4A4JTCikKWcSJtz8X5MvmtacPsGJTyQqQI8G+C/SFi0ym1bhNJ6XwMAGON/blMY2jwYZYmUmTWTfFipKEfFFMTquUjNXt4dfpgIKENEJkHdwcu1QzTRc61SY/NjzRKR+LgRIpz0CiW2CQagBlwSVNBGo0Zn86CTlz7+zwANd0QOYnG+kGqADmAXhOAhfAUXQxSVQBAKOQMJRSGgpRULwjJMAUVE2QmOjYe6XA1sONrFY6vY4PIxxAevROyJL3lalaOXQpB1pbAhlAzeSZ5BP2Vlt6810rbfznZvTqilVWKYeNOVJ6W4P6okMjoBGOgMrok54xiPxeN/CbyTBmwUGW/p58s7+/erj4elM0O3KcCXgpv7n7r1PYhYebWnkcMMXCrPfvOi/Tlv77L05n1V4KLDNfItxsPnv+pDyqa/d8d+P1bK2HysWEUVv+2ZbJFUW22m75z2ZW9iu9eLyaANQ8IXmn+18Hc35fUj8lXwRxM1+7+Ylt3PjybG44Dq+MRd55sWyawF/alMn18nnK+8CgAA48Xp+r2yM1Rb/N5gfPg2+A3y59ucyie/TAhpaIn9NXBKRmWME6Hx10IvmI02aSlLsoLRt3vIiPv0QoJqIAohAgABzRABKDcIgRQyA03BuRKhZN4p27sYMu3fj4gK4CcEh7tGkmFCsipXCBDuFaYJJHoImCjZqGjoTjFguGnZqglomRnZ6vZWKgiCTSCJIomZnZ1ZITk6pIZT/uMhGSWSkYJeMVa1LjTp5BFX0JtjYaEypZKI3vXnaQoJRLh3CitYMOdJl1cZMkngLtpeCtRv0M08gEWXLPYTdJQzylSfTAA==) format('woff2');font-weight:700;font-style:normal;font-display:swap;}
+.ev-cd-grid{display:flex;align-items:flex-start;gap:.45rem;margin:.2rem 0 1.1rem;}
 .ev-cd-unit{text-align:center;min-width:2.4em;}
-.ev-cd-sep{font-family:'Fraunces',serif;font-size:clamp(1.7rem,2.6vw,2.2rem);line-height:1;color:var(--rosewood);opacity:.35;}
-.ev-cd-num{display:block;font-family:'Fraunces',serif;font-size:clamp(1.7rem,2.6vw,2.2rem);line-height:1;color:var(--rosewood);font-variant-numeric:tabular-nums;}
-.ev-cd-lbl{display:block;margin-top:.35rem;font-size:.6rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--mauve);}
+.ev-cd-sep{font-family:'DSEG7',monospace;font-weight:700;font-size:clamp(1.45rem,2.1vw,1.8rem);line-height:1;color:var(--rosewood);opacity:.45;animation:cdBlink 1s steps(2,start) infinite;}
+@keyframes cdBlink{to{opacity:.12;}}
+@media (prefers-reduced-motion:reduce){ .ev-cd-sep{animation:none;} }
+.ev-cd-num{position:relative;display:block;font-family:'DSEG7',monospace;font-weight:700;font-size:clamp(1.45rem,2.1vw,1.8rem);line-height:1;color:var(--rosewood);letter-spacing:.04em;}
+.ev-cd-num::before{content:'88';position:absolute;inset:0;color:var(--rosewood);opacity:.08;pointer-events:none;}
+.ev-cd-lbl{display:block;margin-top:.5rem;font-size:.6rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--mauve);}
 .ev-cal{position:relative;display:inline-block;}
 .ev-cal-btn{border:0;font-family:inherit;cursor:pointer;}
 .ev-cal-btn span{font-size:.7em;margin-left:.15rem;transition:transform .2s ease;display:inline-block;}
