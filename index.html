@@ -2354,6 +2354,22 @@
 .ev-register-flyer:hover img,.ev-register-flyer:focus-visible img{transform:scale(1.035);}
 .ev-register-flyer:focus-visible{outline:3px solid var(--rosewood);outline-offset:4px;}
 @media (prefers-reduced-motion:reduce){ .ev-register-flyer,.ev-register-flyer img,.ev-lightbox-inner{transition:none;} }
+.mandy-launcher{position:fixed;right:24px;bottom:24px;z-index:40;display:flex;align-items:center;gap:0;padding:0;border:0;background:none;cursor:pointer;animation:mandyIn .6s cubic-bezier(.2,.8,.2,1) .8s both;}
+.mandy-launcher[hidden]{display:none;}
+.mandy-launcher.is-open{opacity:0;pointer-events:none;transform:scale(.8);transition:opacity .2s ease,transform .2s ease;}
+.mandy-launcher img{order:2;width:64px;height:64px;display:block;border-radius:50% !important;border:3px solid var(--white);box-shadow:0 0 0 2px var(--rosewood),0 12px 28px -8px rgba(123,45,62,.55);transition:transform .3s cubic-bezier(.2,.8,.2,1),box-shadow .3s ease;}
+.mandy-launcher-label{order:1;margin-right:.6rem;padding:.55rem .95rem;background:var(--white);color:var(--rosewood);font:700 .85rem/1 'Manrope',sans-serif;white-space:nowrap;border-radius:999px !important;box-shadow:0 8px 22px -10px rgba(43,33,37,.45);opacity:0;transform:translateX(8px);transition:opacity .25s ease,transform .3s cubic-bezier(.2,.8,.2,1);pointer-events:none;}
+.mandy-launcher:hover img,.mandy-launcher:focus-visible img{transform:translateY(-3px) scale(1.05);box-shadow:0 0 0 2px var(--rosewood),0 16px 32px -8px rgba(123,45,62,.6);}
+.mandy-launcher:hover .mandy-launcher-label,.mandy-launcher:focus-visible .mandy-launcher-label{opacity:1;transform:none;}
+.mandy-launcher:focus-visible{outline:none;}
+.mandy-launcher:focus-visible img{box-shadow:0 0 0 3px var(--rosewood),0 0 0 6px rgba(123,45,62,.25);}
+@keyframes mandyIn{from{opacity:0;transform:translateY(16px) scale(.85);}to{opacity:1;transform:none;}}
+@media (max-width:680px){
+  .mandy-launcher{right:14px;bottom:calc(64px + env(safe-area-inset-bottom,0px));}
+  .mandy-launcher img{width:56px;height:56px;}
+  .mandy-launcher-label{display:none;}
+}
+@media (prefers-reduced-motion:reduce){ .mandy-launcher{animation:none;} }
 .ev-lightbox{flex-direction:column;}
 .ev-lightbox-inner{display:flex;flex-direction:column;align-items:center;gap:1.1rem;max-width:min(92vw,620px);transform:scale(.86) translateY(28px);opacity:0;transition:transform .45s cubic-bezier(.2,.8,.2,1),opacity .3s ease;}
 .ev-lightbox.open .ev-lightbox-inner{transform:none;opacity:1;}
@@ -4596,6 +4612,29 @@
 })();
 </script>
 <!-- Mandy, the Thunderbolt website assistant (Spaceship) -->
-<script defer src="https://www.thunderbolt.com/gateway/api/v1/thunderbolt-ui/embed.js"></script>
+<button type="button" class="mandy-launcher" id="mandyLauncher" data-thunderbolt-launcher aria-label="Chat with Mandy" hidden>
+  <img src="images/mandy-launcher.webp" alt="" width="64" height="64" decoding="async">
+  <span class="mandy-launcher-label">Ask Mandy</span>
+</button>
+<script>
+/* Show Mandy's button only once Thunderbolt has loaded, and hide it while the chat is open. */
+(function(){
+  var btn = document.getElementById('mandyLauncher');
+  var tries = 0;
+  (function wait(){
+    var T = window.Thunderbolt;
+    if (T) {
+      btn.hidden = false;
+      try {
+        T.on && T.on('open', function(){ btn.classList.add('is-open'); });
+        T.on && T.on('close', function(){ btn.classList.remove('is-open'); });
+      } catch(e) {}
+      return;
+    }
+    if (++tries < 40) setTimeout(wait, 250);
+  })();
+})();
+</script>
+<script defer src="https://www.thunderbolt.com/gateway/api/v1/thunderbolt-ui/embed.js" data-host-launcher="true"></script>
 </body>
 </html>
