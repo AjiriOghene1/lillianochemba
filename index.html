@@ -2419,6 +2419,23 @@ html:not(.tb-open) .tb-layer{display:none !important;}
   .ev-register-main{grid-template-columns:1fr;gap:1.4rem;}
   .ev-register-flyer{max-width:460px;}
 }
+.ev-countdown[hidden]{display:none;}
+.ev-cd-grid{display:flex;align-items:flex-start;gap:.35rem;margin:.1rem 0 1.1rem;}
+.ev-cd-unit{text-align:center;min-width:2.4em;}
+.ev-cd-sep{font-family:'Fraunces',serif;font-size:clamp(1.7rem,2.6vw,2.2rem);line-height:1;color:var(--rosewood);opacity:.35;}
+.ev-cd-num{display:block;font-family:'Fraunces',serif;font-size:clamp(1.7rem,2.6vw,2.2rem);line-height:1;color:var(--rosewood);font-variant-numeric:tabular-nums;}
+.ev-cd-lbl{display:block;margin-top:.35rem;font-size:.6rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--mauve);}
+.ev-cal{position:relative;display:inline-block;}
+.ev-cal-btn{border:0;font-family:inherit;cursor:pointer;}
+.ev-cal-btn span{font-size:.7em;margin-left:.15rem;transition:transform .2s ease;display:inline-block;}
+.ev-cal-btn[aria-expanded="true"] span{transform:rotate(180deg);}
+.ev-cal-menu{position:absolute;left:0;top:calc(100% + .4rem);z-index:5;min-width:100%;background:var(--white);border:1px solid rgba(123,45,62,.2);box-shadow:0 14px 30px -14px rgba(43,33,37,.45);display:flex;flex-direction:column;animation:evCalIn .18s ease;}
+.ev-cal-menu[hidden]{display:none;}
+.ev-cal-menu a{padding:.75rem 1rem;color:var(--ink);font-size:.9rem;font-weight:600;white-space:nowrap;text-decoration:none;}
+.ev-cal-menu a + a{border-top:1px solid rgba(123,45,62,.1);}
+.ev-cal-menu a:hover,.ev-cal-menu a:focus-visible{background:var(--cream);color:var(--rosewood);}
+@keyframes evCalIn{from{opacity:0;transform:translateY(-4px);}to{opacity:1;transform:none;}}
+.ev-cal-note{margin:.7rem 0 0;font-size:.82rem;line-height:1.5;color:var(--mauve);}
 .ev-notify[hidden]{display:none;}
 .ev-notify-lead{margin:0 0 .9rem;color:var(--ink);line-height:1.6;font-size:.95rem;text-align:left;}
 .ev-notify-fields{display:grid;gap:.6rem;}
@@ -3005,17 +3022,24 @@ html:not(.tb-open) .tb-layer{display:none !important;}
         <div class="ev-register-box">
           <p class="ev-register-status" data-evolvers-status>Registration for the next cohort opens 19 October 2026.</p>
           <div class="ev-register-cta" data-evolvers-register hidden><a class="btn btn-solid" href="https://selar.com/u96410de53" target="_blank" rel="noopener">Get your ticket &#8594;</a></div>
-          <form class="ev-notify" id="evNotifyForm" data-evolvers-notify>
-            <p class="ev-notify-lead">Leave your name and email, and we will send you the registration link the moment it opens.</p>
-            <div class="ev-notify-fields">
-              <input type="text" name="first_name" placeholder="First name" aria-label="First name" autocomplete="given-name" maxlength="80" required>
-              <input type="email" name="email" placeholder="Email address" aria-label="Email address" autocomplete="email" maxlength="150" required>
-              <input type="text" name="website" class="ev-hp" tabindex="-1" autocomplete="off" aria-hidden="true">
-              <button type="submit" class="btn btn-solid">Notify me &#8594;</button>
+          <div class="ev-countdown" data-evolvers-countdown>
+            <div class="ev-cd-grid" role="timer" aria-label="Time until registration opens">
+              <div class="ev-cd-unit"><span class="ev-cd-num" data-cd="d">00</span><span class="ev-cd-lbl">Days</span></div>
+              <span class="ev-cd-sep" aria-hidden="true">:</span>
+              <div class="ev-cd-unit"><span class="ev-cd-num" data-cd="h">00</span><span class="ev-cd-lbl">Hours</span></div>
+              <span class="ev-cd-sep" aria-hidden="true">:</span>
+              <div class="ev-cd-unit"><span class="ev-cd-num" data-cd="m">00</span><span class="ev-cd-lbl">Minutes</span></div>
+              <span class="ev-cd-sep" aria-hidden="true">:</span>
+              <div class="ev-cd-unit"><span class="ev-cd-num" data-cd="s">00</span><span class="ev-cd-lbl">Seconds</span></div>
             </div>
-            <p class="ev-notify-msg" role="status" hidden></p>
-          </form>
-          <p class="ev-register-note">Prefer one-on-one support? See the personal mentorship packages above.</p>
+            <div class="ev-cal">
+              <button type="button" class="btn btn-solid ev-cal-btn" id="evCalBtn" aria-expanded="false" aria-controls="evCalMenu">Add to my calendar <span aria-hidden="true">&#9662;</span></button>
+              <div class="ev-cal-menu" id="evCalMenu" hidden>
+                <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=Evolvers+cohort+registration+opens&amp;dates=20261019T080000Z%2F20261019T083000Z&amp;details=Registration+is+open+for+The+Cost+of+Being+Easy+to+Replace%2C+the+next+Evolvers+Coaching+Hub+cohort+with+Lillian+Ochemba+%284+November+2026%2C+7pm+on+Zoom%29.%0A%0AGet+your+ticket%3A+https%3A%2F%2Fselar.com%2Fu96410de53%0AMore+details%3A+https%3A%2F%2Flillianochemba.com%2F%23evolvers&amp;location=https%3A%2F%2Fselar.com%2Fu96410de53&amp;ctz=Africa%2FLagos" target="_blank" rel="noopener">Google Calendar</a>
+                <a href="evolvers-registration.ics">Apple or Outlook calendar</a>
+              </div>
+            </div>
+          </div>
         </div>
         </div>
       </div>
@@ -3792,6 +3816,11 @@ html:not(.tb-open) .tb-layer{display:none !important;}
   function pageUrl(id){
     return id === 'home' ? location.pathname + location.search : '#' + id;
   }
+  // some previews (e.g. an embedded or sandboxed copy of the page) refuse history changes;
+  // the page still switches normally there, just without back-button entries
+  function safeHistory(method, state, url){
+    try { history[method](state, '', url); } catch(e) {}
+  }
   function currentPageId(){
     var a = document.querySelector('.page.active');
     return a ? a.id : 'home';
@@ -3803,9 +3832,9 @@ html:not(.tb-open) .tb-layer{display:none !important;}
     if(!opts.fromHistory){
       var from = currentPageId();
       // remember where the visitor was on the page they are leaving
-      history.replaceState({page: from, y: window.scrollY}, '', location.href);
+      safeHistory('replaceState', {page: from, y: window.scrollY}, location.href);
       if(id !== from || opts.replace){
-        history[opts.replace ? 'replaceState' : 'pushState']({page: id, y: 0}, '', pageUrl(id));
+        safeHistory(opts.replace ? 'replaceState' : 'pushState', {page: id, y: 0}, pageUrl(id));
       }
     }
     pages.forEach(p => p.classList.toggle('active', p.id === id));
@@ -4106,7 +4135,7 @@ html:not(.tb-open) .tb-layer{display:none !important;}
     if(PAGE_IDS.includes(hashId) && hashId !== 'home'){
       showPage(hashId, {replace: true});
     } else {
-      history.replaceState({page: currentPageId(), y: window.scrollY}, '', location.href);
+      safeHistory('replaceState', {page: currentPageId(), y: window.scrollY}, location.href);
     }
   })();
 
@@ -4521,50 +4550,6 @@ html:not(.tb-open) .tb-layer{display:none !important;}
 </script>
 
 <script>
-/* ---------- Evolvers "notify me" form ----------
-   NOTIFY_ENDPOINT is the web app URL of the Apps Script inside the
-   "Evolvers Cohort Sign-ups" Google Sheet (Oneness account).
-   While it is empty, the form opens an email to Oneness instead. */
-(function(){
-  var NOTIFY_ENDPOINT = '';
-  var NOTIFY_EMAIL = 'onenessng@gmail.com';
-  var form = document.getElementById('evNotifyForm');
-  if (!form) return;
-  var msg = form.querySelector('.ev-notify-msg');
-  var btn = form.querySelector('button[type="submit"]');
-  function say(t){ msg.textContent = t; msg.hidden = false; }
-  form.addEventListener('submit', function(e){
-    e.preventDefault();
-    var first = form.first_name.value.trim(), email = form.email.value.trim();
-    if (!first || !email) return;
-    if (form.website.value) return; // spam trap
-    if (!NOTIFY_ENDPOINT) {
-      location.href = 'mailto:' + NOTIFY_EMAIL +
-        '?subject=' + encodeURIComponent('Notify me about the next Evolvers cohort') +
-        '&body=' + encodeURIComponent('Name: ' + first + '\nEmail: ' + email);
-      msg.innerHTML = '';
-      msg.append('Thank you, ' + first + '. Your email app should open with your details filled in: just press send. If nothing opens, email ');
-      var link = document.createElement('a');
-      link.href = 'mailto:' + NOTIFY_EMAIL + '?subject=' + encodeURIComponent('Notify me about the next Evolvers cohort') + '&body=' + encodeURIComponent('Name: ' + first + '\nEmail: ' + email);
-      link.textContent = NOTIFY_EMAIL;
-      msg.append(link, ' with your name and we will add you to the list.');
-      msg.hidden = false;
-      return;
-    }
-    btn.disabled = true;
-    var body = new URLSearchParams({ first_name: first, email: email, website: '' });
-    fetch(NOTIFY_ENDPOINT, { method: 'POST', mode: 'no-cors', body: body })
-      .then(function(){
-        form.reset();
-        say('Thank you, ' + first + '. You are on the list, and we will email you as soon as registration opens. A confirmation is on its way to your inbox.');
-      })
-      .catch(function(){ say('Something went wrong. Please try again in a moment.'); })
-      .finally(function(){ btn.disabled = false; });
-  });
-})();
-</script>
-
-<script>
 /* ---------- dates that switch themselves ----------
    Edit the values below; the page updates on the day without anyone touching it.
    All times are Lagos time (+01:00). To preview another day, add ?preview-date=2026-10-20 to the address. */
@@ -4595,21 +4580,54 @@ html:not(.tb-open) .tb-layer{display:none !important;}
 
   // Evolvers cohort registration
   var opens = new Date(EVOLVERS.opens), closes = EVOLVERS.closes ? new Date(EVOLVERS.closes) : null;
-  var state = now < opens ? 'soon' : (closes && now > closes ? 'closed' : 'open');
-  if (state === 'open' && !EVOLVERS.link) state = 'closed';  // opened but no link yet: "opens soon"
-  var text = {
-    soon:   'Registration for the next cohort opens 19 October 2026.',
-    open:   'Registration is now open for the next cohort on 4 November 2026.',
-    closed: 'Registration for the next cohort opens soon.'
-  }[state];
-  document.querySelectorAll('[data-evolvers-status]').forEach(function(el){ el.textContent = text; });
-  var ready = state === 'open' && !!EVOLVERS.link;  // no link yet = keep collecting names
-  document.querySelectorAll('[data-evolvers-notify]').forEach(function(box){ box.hidden = ready; });
-  document.querySelectorAll('[data-evolvers-register]').forEach(function(box){
-    box.hidden = !ready;
-    var a = box.querySelector('a'); a.href = EVOLVERS.link || FALLBACK_LINK;
-    if (!EVOLVERS.link) a.removeAttribute('target');
-  });
+  var offset = now.getTime() - Date.now();          // non-zero only when previewing another day
+  function applyEvolvers(at){
+    var state = at < opens ? 'soon' : (closes && at > closes ? 'closed' : 'open');
+    if (state === 'open' && !EVOLVERS.link) state = 'closed';  // opened but no link yet: "opens soon"
+    var text = {
+      soon:   'Registration for the next cohort opens 19 October 2026.',
+      open:   'Registration is now open for the next cohort on 4 November 2026.',
+      closed: 'Registration for the next cohort opens soon.'
+    }[state];
+    document.querySelectorAll('[data-evolvers-status]').forEach(function(el){ el.textContent = text; });
+    document.querySelectorAll('[data-evolvers-countdown]').forEach(function(box){ box.hidden = state !== 'soon'; });
+    document.querySelectorAll('[data-evolvers-register]').forEach(function(box){
+      box.hidden = state !== 'open';
+      var a = box.querySelector('a'); a.href = EVOLVERS.link || FALLBACK_LINK;
+      if (!EVOLVERS.link) a.removeAttribute('target');
+    });
+    return state;
+  }
+  var state = applyEvolvers(now);
+
+  // live countdown to registration; at zero the "Get your ticket" button takes its place
+  if (state === 'soon') {
+    var nums = {};
+    document.querySelectorAll('[data-cd]').forEach(function(el){ (nums[el.getAttribute('data-cd')] = nums[el.getAttribute('data-cd')] || []).push(el); });
+    function pad(n){ return (n < 10 ? '0' : '') + n; }
+    function set(k, v){ (nums[k] || []).forEach(function(el){ if (el.textContent !== v) el.textContent = v; }); }
+    var timer = setInterval(tick, 1000);
+    function tick(){
+      var t = new Date(Date.now() + offset);
+      var left = Math.max(0, Math.ceil((opens - t) / 1000));
+      set('d', pad(Math.floor(left / 86400)));
+      set('h', pad(Math.floor(left % 86400 / 3600)));
+      set('m', pad(Math.floor(left % 3600 / 60)));
+      set('s', pad(left % 60));
+      if (left === 0) { clearInterval(timer); applyEvolvers(t); }
+    }
+    tick();
+  }
+
+  // "Add to my calendar" menu
+  var calBtn = document.getElementById('evCalBtn'), calMenu = document.getElementById('evCalMenu');
+  if (calBtn && calMenu) {
+    function calShow(open){ calMenu.hidden = !open; calBtn.setAttribute('aria-expanded', open ? 'true' : 'false'); }
+    calBtn.addEventListener('click', function(e){ e.stopPropagation(); calShow(calMenu.hidden); });
+    calMenu.addEventListener('click', function(){ setTimeout(function(){ calShow(false); }, 150); });
+    document.addEventListener('click', function(e){ if (!calMenu.hidden && !calMenu.contains(e.target)) calShow(false); });
+    document.addEventListener('keydown', function(e){ if (e.key === 'Escape') calShow(false); });
+  }
 })();
 </script>
 <!-- Mandy, the Thunderbolt website assistant (Spaceship) -->
