@@ -1,0 +1,24 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Lillian Ochemba//Evolvers Coaching Hub//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:evolvers-registration-2026-10-19@lillianochemba.com
+DTSTAMP:20261009T170000Z
+DTSTART:20261019T080000Z
+DTEND:20261019T083000Z
+SUMMARY:Evolvers cohort registration opens
+DESCRIPTION:Registration is open for The Cost of Being Easy to Replace\, th
+ e next Evolvers Coaching Hub cohort with Lillian Ochemba (4 November 2026\
+ , 7pm on Zoom).\n\nGet your ticket: https://selar.com/u96410de53\nMore det
+ ails: https://lillianochemba.com/#evolvers
+LOCATION:https://selar.com/u96410de53
+URL:https://selar.com/u96410de53
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Evolvers cohort registration is now open
+TRIGGER:-PT0M
+END:VALARM
+END:VEVENT
+END:VCALENDAR
