@@ -2371,6 +2371,8 @@ html:not(.tb-open) .tb-layer{display:none !important;}
   .mandy-launcher-label{display:none;}
 }
 @media (prefers-reduced-motion:reduce){ .mandy-launcher{animation:none;} }
+.footer-credit{color:inherit;font-weight:700;text-decoration:none;border-bottom:1px solid currentColor;padding-bottom:1px;transition:opacity .2s ease;}
+.footer-credit:hover,.footer-credit:focus-visible{opacity:.7;}
 .ev-lightbox{flex-direction:column;}
 .ev-lightbox-inner{display:flex;flex-direction:column;align-items:center;gap:1.1rem;max-width:min(92vw,620px);transform:scale(.86) translateY(28px);opacity:0;transition:transform .45s cubic-bezier(.2,.8,.2,1),opacity .3s ease;}
 .ev-lightbox.open .ev-lightbox-inner{transform:none;opacity:1;}
@@ -3713,7 +3715,7 @@ html:not(.tb-open) .tb-layer{display:none !important;}
       </div>
       <div class="footer-meta">
         <span>© 2026 Lillian Ochemba. All rights reserved.</span>
-        <span>Designed by HANDYGUY by ajiri</span>
+        <span>Designed by <a class="footer-credit" href="https://handyguybyajiri.github.io/portfolio/" target="_blank" rel="noopener">HANDYGUYbyajiri</a></span>
       </div>
     </footer>
 
